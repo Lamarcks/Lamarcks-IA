@@ -1,19 +1,31 @@
 <div align="center">
 
-# Lamarcks IA
+# LAMARCKS IA
 
-### Assistente de IA com roteamento híbrido e RAG corporativo
+### Assistente de Inteligência Artificial com RAG Corporativo
 
-Aplicação desenvolvida com **Python, FastAPI, LLMs, busca semântica e banco vetorial**, capaz de diferenciar perguntas gerais de tecnologia de perguntas que dependem de uma base de conhecimento corporativa.
+**Inteligência Artificial • Engenharia de Software • Dados • Cloud**
+
+Projeto desenvolvido durante o desafio final da **Alura + Oracle Next Education (ONE)**, com foco na construção de um assistente capaz de responder perguntas gerais e consultar uma base de conhecimento corporativa por meio de RAG.
 
 <br>
 
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge\&logo=python\&logoColor=white)
-![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge\&logo=fastapi\&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge\&logo=python\&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688?style=for-the-badge\&logo=fastapi\&logoColor=white)
 ![Groq](https://img.shields.io/badge/Groq-LLM-F55036?style=for-the-badge)
-![ChromaDB](https://img.shields.io/badge/ChromaDB-Vector%20DB-orange?style=for-the-badge)
-![RAG](https://img.shields.io/badge/RAG-Generative%20AI-blueviolet?style=for-the-badge)
-![OCI](https://img.shields.io/badge/Oracle%20Cloud-OCI-F80000?style=for-the-badge\&logo=oracle\&logoColor=white)
+![ChromaDB](https://img.shields.io/badge/ChromaDB-Vetor-5A67D8?style=for-the-badge)
+![RAG](https://img.shields.io/badge/RAG-IA-6C63FF?style=for-the-badge)
+![Oracle Cloud](https://img.shields.io/badge/Oracle_Cloud-OCI-F80000?style=for-the-badge\&logo=oracle\&logoColor=white)
+
+<br>
+
+### Acessar a aplicação
+
+**[Abrir o Lamarcks IA](http://163.176.27.55:8000)**
+
+<a href="http://163.176.27.55:8000">
+<img width="1919" height="1079" alt="Preview da aplicação Lamarcks IA" src="https://github.com/user-attachments/assets/4316accc-0f97-4213-9602-04c5243ec032" />
+</a>
 
 </div>
 
@@ -21,141 +33,186 @@ Aplicação desenvolvida com **Python, FastAPI, LLMs, busca semântica e banco v
 
 ## Sobre o projeto
 
-O **Lamarcks IA** é um assistente de Inteligência Artificial desenvolvido durante minha formação no **Oracle Next Education (ONE) + Alura**.
+O **Lamarcks IA** é um assistente de Inteligência Artificial desenvolvido para combinar dois tipos de atendimento:
 
-A aplicação combina um modelo de linguagem com uma arquitetura de **Retrieval-Augmented Generation (RAG)** para responder perguntas de duas formas diferentes:
+* perguntas gerais sobre tecnologia e áreas relacionadas;
+* perguntas específicas sobre uma base de conhecimento corporativa.
 
-* **Conhecimento geral:** perguntas conceituais sobre tecnologia são respondidas diretamente pelo modelo de linguagem.
-* **Conhecimento corporativo:** perguntas específicas sobre a empresa fictícia Pegasus são encaminhadas para uma base documental privada, onde ocorre uma busca semântica antes da geração da resposta.
+Para isso, o projeto utiliza uma arquitetura de **RAG (Retrieval-Augmented Generation)**, permitindo que informações relevantes sejam recuperadas de documentos antes de serem utilizadas na geração da resposta.
 
-O objetivo do projeto foi ir além de um chatbot tradicional e implementar um fluxo completo envolvendo **API, classificação de perguntas, embeddings, recuperação de contexto, geração de respostas e proteção da base documental**.
+A aplicação foi construída com **Python e FastAPI**, utilizando **Groq** como provedor do modelo de linguagem, **Sentence Transformers** para geração de embeddings e **ChromaDB** como banco de dados vetorial.
 
 ---
 
 ## Objetivo
 
-O projeto busca demonstrar como uma aplicação pode combinar um LLM com informações próprias de uma organização sem simplesmente disponibilizar os documentos internos ao usuário.
+O objetivo do projeto é demonstrar, na prática, como construir uma aplicação de IA que vai além de simplesmente enviar uma pergunta para um modelo de linguagem.
 
-Entre os principais objetivos estão:
+O projeto trabalha conceitos como:
 
-* Implementar uma API utilizando FastAPI;
-* Integrar um modelo de linguagem através da Groq;
-* Classificar perguntas de acordo com sua finalidade;
-* Implementar um fluxo de RAG;
-* Gerar embeddings dos documentos;
-* Armazenar embeddings em um banco vetorial;
-* Recuperar informações semanticamente relacionadas;
-* Utilizar os documentos recuperados como contexto para o LLM;
-* Evitar respostas inventadas sobre informações corporativas;
-* Impedir solicitações que tentem expor documentos, prompts ou dados internos;
-* Disponibilizar informações sobre o estado da aplicação por meio de uma API de status.
+* integração com modelos de linguagem;
+* RAG;
+* embeddings;
+* busca semântica;
+* banco de dados vetorial;
+* classificação de perguntas;
+* processamento de documentos;
+* API REST;
+* validação de entradas;
+* controle de informações;
+* Docker;
+* deploy em Cloud.
 
 ---
 
 ## Como funciona
 
-O fluxo principal da aplicação pode ser representado da seguinte forma:
+O fluxo principal da aplicação pode ser resumido da seguinte forma:
 
 ```text
-                    Usuário
-                       │
-                       ▼
-                Interface Web
-                       │
-                       ▼
-                    FastAPI
-                       │
-                       ▼
-              Classificação da pergunta
-                       │
-              ┌────────┴────────┐
-              │                 │
-              ▼                 ▼
-           GERAL           CORPORATIVO
-              │                 │
-              │                 ▼
-              │           Busca semântica
-              │                 │
-              │                 ▼
-              │             ChromaDB
-              │                 │
-              │                 ▼
-              │        Contexto recuperado
-              │                 │
-              └────────┬────────┘
-                       ▼
-                     LLM
-                       │
-                       ▼
-                    Resposta
+Usuário
+   │
+   ▼
+Pergunta
+   │
+   ▼
+FastAPI
+   │
+   ▼
+Classificação da pergunta
+   │
+   ├───────────────┐
+   │               │
+   ▼               ▼
+GERAL        CORPORATIVO
+   │               │
+   │               ▼
+   │        Busca no ChromaDB
+   │               │
+   │               ▼
+   │        Contexto relevante
+   │               │
+   └───────┬───────┘
+           ▼
+       Groq / LLM
+           │
+           ▼
+        Resposta
 ```
 
-A classificação é feita pelo próprio modelo de linguagem antes da etapa de recuperação.
+A aplicação identifica primeiro se a pergunta pertence ao contexto corporativo ou se pode ser respondida utilizando conhecimento geral.
 
-Quando a pergunta depende de informações específicas da Pegasus, o sistema consulta a base vetorial.
+### Perguntas gerais
+
+Quando a pergunta é classificada como geral, a aplicação utiliza o modelo de linguagem sem realizar uma busca na base corporativa.
+
+Exemplos:
+
+```text
+O que é uma API REST?
+```
+
+```text
+Qual a diferença entre Python e JavaScript?
+```
+
+```text
+O que é Docker?
+```
+
+### Perguntas corporativas
+
+Quando a pergunta está relacionada ao ambiente corporativo, a aplicação consulta a base vetorial.
+
+O fluxo é:
+
+1. receber a pergunta;
+2. classificar como corporativa;
+3. gerar o embedding da pergunta;
+4. consultar o ChromaDB;
+5. recuperar os trechos mais relevantes;
+6. adicionar o contexto encontrado ao prompt;
+7. enviar o contexto para o modelo;
+8. gerar a resposta baseada nas informações recuperadas.
 
 ---
 
 ## RAG — Retrieval-Augmented Generation
 
-A base corporativa utiliza documentos organizados por áreas de conhecimento.
+O projeto utiliza **Retrieval-Augmented Generation** para permitir que o modelo consulte uma base externa de conhecimento.
 
-Atualmente o projeto possui documentos relacionados a:
+Em vez de depender exclusivamente do conhecimento do modelo, a aplicação recupera informações relevantes dos documentos previamente processados.
 
-```text
-documentos/
-├── arquitetura/
-├── backend/
-├── frontend/
-├── incidentes/
-└── onboarding/
-```
-
-O processo de indexação segue estas etapas:
+### Pipeline
 
 ```text
 Documentos
-    ↓
+    │
+    ▼
 Extração do conteúdo
-    ↓
+    │
+    ▼
 Divisão em chunks
-    ↓
-Geração de embeddings
-    ↓
+    │
+    ▼
+Embeddings
+    │
+    ▼
 ChromaDB
-```
-
-Quando uma pergunta corporativa é realizada:
-
-```text
-Pergunta
-    ↓
+    │
+    │
+    ▼
+Pergunta do usuário
+    │
+    ▼
 Embedding da pergunta
-    ↓
-Busca por similaridade
-    ↓
+    │
+    ▼
+Busca semântica
+    │
+    ▼
 Trechos relevantes
-    ↓
-Contexto enviado ao LLM
-    ↓
-Resposta contextualizada
+    │
+    ▼
+LLM
+    │
+    ▼
+Resposta
 ```
 
-A aplicação utiliza **Sentence Transformers** com o modelo:
+Os documentos podem ser processados a partir dos seguintes formatos:
 
-```text
-sentence-transformers/all-MiniLM-L6-v2
-```
+* PDF
+* Markdown
+* TXT
+* CSV
+* JSON
 
-Os embeddings são normalizados e armazenados no **ChromaDB utilizando distância cosseno**.
+---
+
+## Busca semântica
+
+Os documentos são divididos em pequenos trechos antes de serem transformados em embeddings.
+
+Configurações utilizadas no projeto:
+
+| Configuração                    |              Valor |
+| ------------------------------- | -----------------: |
+| Tamanho aproximado do chunk     |     900 caracteres |
+| Sobreposição                    |     150 caracteres |
+| Quantidade máxima de resultados |                  5 |
+| Distância máxima configurada    |               0.45 |
+| Modelo de embedding             | `all-MiniLM-L6-v2` |
+
+Os embeddings são armazenados no **ChromaDB**, permitindo comparar semanticamente a pergunta do usuário com os conteúdos existentes na base.
 
 ---
 
 ## Roteamento de perguntas
 
-Uma das principais características do projeto é o roteamento entre conhecimento geral e conhecimento corporativo.
+Uma das características do projeto é o roteamento entre perguntas gerais e corporativas.
 
-O classificador recebe a pergunta e retorna uma das categorias:
+A classificação é realizada pelo próprio modelo de linguagem, que retorna uma das duas categorias:
 
 ```text
 GERAL
@@ -167,317 +224,268 @@ ou
 CORPORATIVO
 ```
 
-### Pergunta geral
-
-Exemplo:
-
-```text
-O que é uma API REST?
-```
-
-Nesse caso, a aplicação utiliza o conhecimento geral do modelo.
-
-### Pergunta corporativa
-
-Exemplo:
-
-```text
-Como funciona o onboarding da Pegasus?
-```
-
-Nesse caso, a aplicação realiza uma busca na base documental antes de gerar a resposta.
-
-Essa separação evita consultar a base corporativa desnecessariamente em perguntas conceituais.
+Essa separação evita realizar buscas desnecessárias na base corporativa quando a pergunta não depende dessas informações.
 
 ---
 
 ## Controle de informações corporativas
 
-O sistema possui regras específicas para evitar que informações internas sejam expostas diretamente.
+O projeto possui regras para evitar que informações internas sejam expostas diretamente.
 
-Entre os controles implementados estão:
+A aplicação possui bloqueios para solicitações como:
 
-* Bloqueio de solicitações para obter documentos completos;
-* Bloqueio de solicitações para revelar o prompt do sistema;
-* Bloqueio de solicitações para expor caminhos internos;
-* Bloqueio de solicitações para revelar conteúdo bruto do ChromaDB;
-* Não exposição dos embeddings;
-* Não disponibilização direta dos documentos ao usuário;
-* Respostas baseadas em síntese do conteúdo recuperado;
-* Tratamento explícito quando uma informação corporativa não é encontrada.
+* pedir documentos completos;
+* copiar documentos internos;
+* solicitar o prompt do sistema;
+* solicitar caminhos internos;
+* listar arquivos ou diretórios internos;
+* acessar diretamente o banco vetorial;
+* tentar ignorar as regras definidas para o agente.
 
-Por exemplo, a aplicação não deve responder a uma solicitação para simplesmente disponibilizar um PDF interno inteiro.
-
-Em vez disso, orienta o usuário a fazer uma pergunta específica sobre o conteúdo.
-
-> Esses mecanismos são controles aplicados dentro da aplicação e não substituem autenticação, autorização, auditoria, criptografia e gerenciamento adequado de segredos em um ambiente corporativo real.
+Além disso, quando uma pergunta corporativa não possui contexto relevante na base, o sistema evita inventar uma resposta específica.
 
 ---
 
 ## Validação das entradas
 
-A API também possui validações para as perguntas recebidas.
+As perguntas enviadas para a API passam por validações antes de serem processadas.
 
-A estrutura utilizada pelo FastAPI limita a pergunta a:
-
-* mínimo de 1 caractere;
-* máximo de 1000 caracteres.
-
-Além disso, o conteúdo é tratado antes de ser encaminhado para o fluxo de geração.
-
-Caso o serviço de IA ou a base vetorial estejam indisponíveis, a API retorna códigos HTTP apropriados, incluindo:
+A aplicação possui limite de tamanho para as perguntas:
 
 ```text
-400 — entrada inválida
-503 — serviço/base indisponível
-500 — erro interno
+Máximo: 1000 caracteres
 ```
+
+Também são tratados erros relacionados à disponibilidade do serviço e falhas inesperadas durante o processamento.
+
+Principais respostas HTTP utilizadas:
+
+| Código | Situação                 |
+| ------ | ------------------------ |
+| `200`  | Pergunta processada      |
+| `400`  | Entrada inválida         |
+| `503`  | Serviço RAG indisponível |
+| `500`  | Erro interno             |
 
 ---
 
 ## API
 
-A aplicação disponibiliza os seguintes endpoints principais:
+A aplicação utiliza **FastAPI** para disponibilizar os endpoints.
 
-### `GET /`
+### Página inicial
 
-Retorna a interface web da aplicação.
+```http
+GET /
+```
 
-### `POST /api/perguntar`
+Retorna a interface da aplicação.
 
-Recebe uma pergunta e retorna a resposta gerada.
+### Fazer uma pergunta
+
+```http
+POST /api/perguntar
+```
 
 Exemplo de requisição:
 
 ```json
 {
-  "pergunta": "O que é RAG?"
+  "pergunta": "O que é uma API REST?"
 }
 ```
 
-A resposta pode indicar, entre outras informações:
+### Consultar status
 
-```json
-{
-  "sucesso": true,
-  "pergunta": "O que é RAG?",
-  "resposta": "...",
-  "fontes": [],
-  "modo": "geral"
-}
+```http
+GET /api/status
 ```
 
-Quando uma base corporativa é utilizada, o campo `modo` pode indicar:
+O endpoint retorna informações relacionadas ao estado do agente, incluindo:
 
-```text
-rag
-```
-
-### `GET /api/status`
-
-Retorna informações sobre o estado da aplicação, incluindo:
-
-* configuração da Groq;
+* configuração do Groq;
 * disponibilidade da base vetorial;
-* quantidade de documentos/trechos indexados;
-* modelo de LLM utilizado;
-* banco vetorial utilizado;
-* status do agente.
+* quantidade de documentos/chunks;
+* modelo utilizado;
+* banco vetorial.
 
 ---
 
 ## Ingestão dos documentos
 
-A indexação é realizada pelo arquivo:
+O arquivo `ingest.py` é responsável por preparar os documentos utilizados pelo RAG.
+
+O processo envolve:
+
+1. localizar os documentos;
+2. identificar o tipo de arquivo;
+3. extrair o conteúdo;
+4. dividir o conteúdo em chunks;
+5. gerar embeddings;
+6. armazenar os embeddings no ChromaDB.
+
+O projeto utiliza uma coleção chamada:
 
 ```text
-ingest.py
+rede_vida_conhecimento
 ```
 
-O processo suporta atualmente:
+O banco vetorial é persistido localmente no diretório:
 
 ```text
-PDF
-Markdown
-TXT
-CSV
-JSON
+chroma_db/
 ```
 
-Os documentos são encontrados recursivamente dentro da pasta:
-
-```text
-documentos/
-```
-
-Para arquivos PDF, o sistema utiliza o `pypdf` para extrair o texto.
-
-Os conteúdos são então divididos em chunks utilizando:
-
-```text
-Tamanho aproximado: 900 caracteres
-Sobreposição: 150 caracteres
-```
-
-Cada trecho recebe metadados como:
-
-* documento;
-* área;
-* categoria;
-* tipo de arquivo;
-* índice do chunk;
-* página, quando aplicável.
-
-Esses metadados permitem identificar a origem dos trechos recuperados durante a consulta.
+Esse diretório é ignorado pelo Git para evitar o versionamento dos dados gerados localmente.
 
 ---
 
 ## Tecnologias utilizadas
 
-| Tecnologia                      | Utilização                             |
-| ------------------------------- | -------------------------------------- |
-| **Python**                      | Linguagem principal                    |
-| **FastAPI**                     | Desenvolvimento da API                 |
-| **Uvicorn**                     | Servidor ASGI                          |
-| **Groq**                        | Acesso ao modelo de linguagem          |
-| **ChromaDB**                    | Banco de dados vetorial                |
-| **Sentence Transformers**       | Geração de embeddings                  |
-| **pypdf**                       | Extração de conteúdo de PDFs           |
-| **python-dotenv**               | Gerenciamento de variáveis de ambiente |
-| **HTML**                        | Estrutura da interface                 |
-| **CSS**                         | Estilização                            |
-| **JavaScript**                  | Interações da interface                |
-| **Docker**                      | Containerização                        |
-| **Oracle Cloud Infrastructure** | Infraestrutura de deploy               |
+### Backend
+
+* Python
+* FastAPI
+* Uvicorn
+* Pydantic
+
+### Inteligência Artificial
+
+* Groq
+* Large Language Model
+* Sentence Transformers
+* Embeddings
+* RAG
+
+### Banco vetorial
+
+* ChromaDB
+
+### Processamento de documentos
+
+* PyPDF
+
+### Infraestrutura
+
+* Docker
+* Oracle Cloud Infrastructure (OCI)
+
+### Configuração
+
+* Python-dotenv
+* Variáveis de ambiente
 
 ---
 
 ## Estrutura do projeto
 
+A estrutura principal do projeto é organizada da seguinte forma:
+
 ```text
 Lamarcks-IA/
 │
-├── documentos/
-│   ├── arquitetura/
-│   ├── backend/
-│   ├── frontend/
-│   ├── incidentes/
-│   └── onboarding/
+├── app.py
+├── config.py
+├── rag.py
+├── ingest.py
+├── requirements.txt
+├── Dockerfile
+├── .env.example
+├── .gitignore
 │
-├── static/
-│   ├── script.js
-│   └── style.css
+├── documentos/
+│   └── ...
 │
 ├── templates/
 │   └── index.html
 │
-├── .env.example
-├── .gitignore
-├── Dockerfile
-├── app.py
-├── config.py
-├── ingest.py
-├── rag.py
-├── requirements.txt
-└── README.md
+├── static/
+│   └── ...
+│
+└── chroma_db/
+    └── ...
 ```
 
-A pasta `chroma_db/` é criada localmente durante a indexação e está incluída no `.gitignore`, portanto não faz parte do versionamento do repositório.
+> O diretório `chroma_db/` é criado localmente durante a utilização do sistema e não deve ser versionado.
 
 ---
 
-## Como executar
+## Configuração do ambiente
 
-### 1. Clone o repositório
+Crie um arquivo `.env` baseado no `.env.example`.
+
+Exemplo:
+
+```env
+GROQ_API_KEY=sua_chave_groq
+GROQ_MODEL=llama-3.1-8b-instant
+MAX_DISTANCE=0.45
+```
+
+A chave da API deve permanecer apenas no ambiente local ou no serviço de hospedagem.
+
+Ela **não deve ser adicionada ao GitHub**.
+
+---
+
+## Como executar localmente
+
+### 1. Clonar o repositório
 
 ```bash
 git clone https://github.com/Lamarcks/Lamarcks-IA.git
 ```
 
-Entre na pasta:
+### 2. Entrar no diretório
 
 ```bash
 cd Lamarcks-IA
 ```
 
-### 2. Crie um ambiente virtual
+### 3. Criar um ambiente virtual
+
+Windows:
 
 ```bash
 python -m venv .venv
 ```
 
-No Windows:
-
-```powershell
-.venv\Scripts\Activate.ps1
-```
-
-No Linux/macOS:
+Ativação:
 
 ```bash
+.venv\Scripts\activate
+```
+
+Linux/macOS:
+
+```bash
+python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-### 3. Instale as dependências
+### 4. Instalar as dependências
 
 ```bash
-python -m pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 
-### 4. Configure as variáveis de ambiente
+### 5. Configurar as variáveis de ambiente
 
-Crie um arquivo:
+Crie o arquivo:
 
 ```text
 .env
 ```
 
-utilizando o `.env.example` como referência.
+e adicione sua chave da Groq.
 
-Configure sua chave:
-
-```env
-GROQ_API_KEY=sua_chave_aqui
-```
-
-Também é possível definir:
-
-```env
-GROQ_MODEL=llama-3.1-8b-instant
-MAX_DISTANCE=0.45
-```
-
-> O arquivo `.env` não deve ser enviado para o GitHub.
-
-### 5. Crie a base vetorial
-
-Execute:
+### 6. Executar a aplicação
 
 ```bash
-python ingest.py
+uvicorn app:app --reload
 ```
 
-Esse comando irá:
-
-```text
-Ler documentos
-    ↓
-Extrair conteúdo
-    ↓
-Criar chunks
-    ↓
-Gerar embeddings
-    ↓
-Criar coleção no ChromaDB
-```
-
-### 6. Inicie a aplicação
-
-```bash
-python -m uvicorn app:app --reload
-```
-
-Depois acesse:
+A aplicação ficará disponível localmente em:
 
 ```text
 http://127.0.0.1:8000
@@ -487,31 +495,41 @@ http://127.0.0.1:8000
 
 ## Executando com Docker
 
-O projeto também possui um `Dockerfile` baseado em:
+O projeto também possui um `Dockerfile` para facilitar a execução em ambientes compatíveis com containers.
 
-```text
-Python 3.11-slim
-```
-
-Para criar a imagem:
+Construção da imagem:
 
 ```bash
 docker build -t lamarcks-ia .
 ```
 
-Para executar:
+Execução:
 
 ```bash
 docker run -p 8000:8000 --env-file .env lamarcks-ia
 ```
 
-A aplicação ficará disponível em:
+Depois disso:
 
 ```text
 http://localhost:8000
 ```
 
-A base vetorial e os documentos precisam ser disponibilizados adequadamente no ambiente do container para que o fluxo RAG funcione.
+---
+
+## Segurança e boas práticas
+
+Durante o desenvolvimento, foram consideradas algumas práticas para reduzir riscos comuns em aplicações de IA:
+
+* utilização de variáveis de ambiente para credenciais;
+* `.env` ignorado pelo Git;
+* limite de tamanho das perguntas;
+* validação das entradas com Pydantic;
+* tratamento de erros da API;
+* bloqueio de solicitações para exposição de informações internas;
+* separação entre conhecimento geral e corporativo;
+* prevenção contra respostas inventadas sobre informações específicas da empresa;
+* proteção do banco vetorial e dos arquivos internos contra acesso direto pela interface.
 
 ---
 
@@ -520,141 +538,135 @@ A base vetorial e os documentos precisam ser disponibilizados adequadamente no a
 ### Conhecimento geral
 
 ```text
-O que é RAG?
+O que é uma API?
 ```
 
 ```text
-Qual a diferença entre Machine Learning e Deep Learning?
+Como funciona o Docker?
 ```
 
 ```text
-Como funciona uma API REST?
+Qual a diferença entre banco SQL e NoSQL?
 ```
 
 ### Conhecimento corporativo
 
 ```text
-Como funciona o onboarding da Pegasus?
+Quais informações existem na base corporativa sobre determinado assunto?
 ```
 
 ```text
-Quais padrões de engenharia back-end são utilizados pela Pegasus?
+O que a documentação interna informa sobre determinado processo?
 ```
 
-```text
-Como a Pegasus organiza sua arquitetura de microsserviços?
-```
-
-O sistema determina automaticamente qual fluxo utilizar.
+Nesse segundo caso, a aplicação realiza a busca semântica antes de gerar a resposta.
 
 ---
 
-## Deploy em Oracle Cloud
+## Deploy em Cloud
 
-O projeto também foi utilizado em uma infraestrutura da **Oracle Cloud Infrastructure (OCI)**.
+O projeto também foi utilizado como experiência prática com **Oracle Cloud Infrastructure (OCI)**.
 
-A arquitetura de execução pode ser representada por:
+O ambiente de Cloud permitiu trabalhar conceitos relacionados a:
 
-```text
-Internet
-   ↓
-Oracle Cloud Infrastructure
-   ↓
-Compute
-   ↓
-Linux
-   ↓
-Aplicação Python
-   ↓
-FastAPI / Uvicorn
-   ↓
-LAMARCKS IA
-```
+* infraestrutura;
+* servidor;
+* Linux;
+* Docker;
+* exposição de aplicações web;
+* configuração de ambiente;
+* execução de serviços Python em Cloud.
 
-A infraestrutura em nuvem fez parte do aprendizado do projeto, permitindo trabalhar não apenas com desenvolvimento da aplicação, mas também com aspectos relacionados a **deploy e execução de serviços em cloud**.
+A experiência de deploy faz parte da evolução do projeto além do ambiente local.
 
 ---
 
-## Conceitos praticados
+## Principais conceitos praticados
 
-Durante o desenvolvimento foram trabalhados conceitos de:
+Durante o desenvolvimento, foram trabalhados conceitos de diferentes áreas:
 
-* Inteligência Artificial Generativa;
-* Large Language Models;
-* RAG;
-* Engenharia de Prompt;
+### Inteligência Artificial
+
+* LLMs;
+* engenharia de prompts;
 * classificação de perguntas;
+* geração de respostas;
+* RAG;
 * embeddings;
-* busca semântica;
-* bancos de dados vetoriais;
-* processamento de documentos;
+* busca semântica.
+
+### Desenvolvimento de software
+
 * APIs REST;
 * FastAPI;
-* Python;
 * validação de dados;
 * tratamento de exceções;
-* segurança de aplicações;
-* proteção contra exposição de informações;
+* organização de código;
+* variáveis de ambiente.
+
+### Dados
+
+* processamento de documentos;
+* transformação de texto;
+* criação de embeddings;
+* armazenamento vetorial;
+* recuperação de informações.
+
+### Infraestrutura
+
 * Docker;
 * Linux;
-* Oracle Cloud Infrastructure;
-* arquitetura de software.
+* Oracle Cloud;
+* execução de aplicações em servidor.
+
+### Segurança
+
+* proteção de credenciais;
+* controle de informações internas;
+* validação de entradas;
+* prevenção contra exposição de dados;
+* tratamento de solicitações maliciosas.
 
 ---
 
 ## Aprendizados
 
-Este projeto foi uma evolução importante em relação ao uso de IA apenas como uma interface de perguntas e respostas.
+O desenvolvimento do Lamarcks IA permitiu aplicar conhecimentos de forma integrada, principalmente na conexão entre **Inteligência Artificial, desenvolvimento web, dados e infraestrutura**.
 
-Durante o desenvolvimento, foi possível trabalhar com o fluxo completo de uma aplicação baseada em RAG:
+Um dos principais aprendizados foi entender que construir uma aplicação com IA envolve mais do que integrar um modelo de linguagem.
 
-```text
-Documentos
-    ↓
-Processamento
-    ↓
-Embeddings
-    ↓
-Banco vetorial
-    ↓
-Recuperação
-    ↓
-Contexto
-    ↓
-LLM
-    ↓
-Resposta
-```
+Também é necessário pensar em:
 
-Também foi possível compreender que uma aplicação com LLM precisa considerar aspectos além da geração de texto, como:
-
+* origem das informações;
 * qualidade do contexto recuperado;
-* limites da informação disponível;
-* validação das entradas;
-* tratamento de falhas;
-* proteção de informações internas;
-* controle de credenciais;
-* arquitetura da aplicação;
-* execução em infraestrutura real.
+* controle das respostas;
+* segurança;
+* tratamento de erros;
+* organização da aplicação;
+* infraestrutura;
+* experiência do usuário.
+
+O projeto também ajudou a compreender na prática como uma arquitetura RAG pode transformar documentos externos em uma fonte de conhecimento consultável por um assistente de IA.
 
 ---
 
 ## Próximos passos
 
-Algumas evoluções possíveis para o projeto são:
+Algumas possibilidades de evolução do projeto:
 
-* [ ] autenticação de usuários;
-* [ ] controle de acesso por perfil;
-* [ ] histórico de conversas;
-* [ ] painel administrativo;
-* [ ] monitoramento da aplicação;
-* [ ] métricas de utilização do RAG;
-* [ ] sistema de avaliação das respostas;
-* [ ] suporte a mais formatos de documentos;
-* [ ] cache de consultas frequentes;
-* [ ] HTTPS e domínio próprio;
-* [ ] pipeline de CI/CD;
-* [ ] testes automatizados.
+* autenticação de usuários;
+* controle de acesso por perfil;
+* histórico de conversas;
+* painel administrativo;
+* monitoramento da aplicação;
+* testes automatizados;
+* avaliação da qualidade das respostas do RAG;
+* métricas de utilização;
+* cache de respostas;
+* melhoria do sistema de recuperação;
+* HTTPS e domínio próprio;
+* CI/CD;
+* suporte a mais formatos de documentos.
 
 ---
 
@@ -662,12 +674,12 @@ Algumas evoluções possíveis para o projeto são:
 
 **Ihago Lamarcks**
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Ihago%20Lamarcks-0A66C2?style=for-the-badge\&logo=linkedin\&logoColor=white)](https://www.linkedin.com/in/ihago-lamarcks1/)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Ihago_Lamarcks-0A66C2?style=for-the-badge\&logo=linkedin\&logoColor=white)](https://www.linkedin.com/in/ihagolamarcks/)
 
 ---
 
 <div align="center">
 
-**Python • FastAPI • RAG • ChromaDB • LLM • Oracle Cloud**
+**Lamarcks IA - Inteligência Artificial aplicada a conhecimento corporativo**
 
 </div>
